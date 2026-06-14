@@ -361,7 +361,3 @@ while True:
         break
     else:
         print("Opcion invalida. Ingresa un numero del menu.")
-
-# Ejecución de menú principal
-
-mostrar_menu()
