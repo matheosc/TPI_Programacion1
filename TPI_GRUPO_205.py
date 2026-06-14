@@ -39,12 +39,14 @@ def cargar_paises():
 
 
 def guardar_paises(lista):
-    archivo = open("paises.csv", "w", newline="", encoding="utf-8")
-    escritor = csv.DictWriter(archivo, fieldnames=["nombre", "poblacion", "superficie", "continente"])
-    escritor.writeheader()
-    escritor.writerows(lista)
-    archivo.close()
-    print("Cambios guardados correctamente.")
+    try:
+        with open("paises.csv", "w", newline="", encoding="utf-8") as archivo:
+            escritor = csv.DictWriter(archivo, fieldnames=["nombre", "poblacion", "superficie", "continente"])
+            escritor.writeheader()
+            escritor.writerows(lista)
+        print("Cambios guardados correctamente.")
+    except:
+        print("Error: {e}")
 
 
 def mostrar_pais(pais):
@@ -56,19 +58,19 @@ def mostrar_pais(pais):
 
 
 def mostrar_lista(lista):
-    if len(lista) == 0:
+    if not lista:
         print("No se encontraron paises con esos criterios.")
-        return
-    print("\nSe encontraron", len(lista), "pais/es:\n")
-    for p in lista:
-        mostrar_pais(p)
+    else:
+        print("\nSe encontraron", len(lista), "pais/es:\n")
+        for p in lista:
+            mostrar_pais(p)
 
 
 def agregar_pais(lista):
     print("\n--- AGREGAR PAIS ---")
 
-    nombre = input("Nombre del pais: ").strip()
-    if nombre == "":
+    nombre = input("Nombre del pais: ").strip().capitalize()
+    if not nombre:
         print("El nombre no puede estar vacio.")
         return
 
@@ -78,29 +80,29 @@ def agregar_pais(lista):
             return
 
     poblacion = input("Poblacion: ").strip()
-    if poblacion == "":
+    if not poblacion:
         print("La poblacion no puede estar vacia.")
         return
     if not poblacion.isdigit():
-        print("La poblacion tiene que ser un numero entero.")
+        print("La poblacion tiene que ser un numero entero mayor a cero.")
         return
-    if int(poblacion) <= 0:
+    if int(poblacion) == 0:
         print("La poblacion tiene que ser mayor a cero.")
         return
 
     superficie = input("Superficie en km2: ").strip()
-    if superficie == "":
+    if not poblacion:
         print("La superficie no puede estar vacia.")
         return
     if not superficie.isdigit():
-        print("La superficie tiene que ser un numero entero.")
+        print("La superficie tiene que ser un numero entero mayor a cero.")
         return
-    if int(superficie) <= 0:
+    if int(superficie) == 0:
         print("La superficie tiene que ser mayor a cero.")
         return
 
     continente = input("Continente: ").strip()
-    if continente == "":
+    if not continente:
         print("El continente no puede estar vacio.")
         return
 
@@ -112,28 +114,28 @@ def agregar_pais(lista):
     }
     lista.append(nuevo_pais)
     guardar_paises(lista)
-    print("Pais", nombre, "agregado correctamente.")
+    print("Pais ", nombre, " agregado correctamente.")
 
 
 def actualizar_pais(lista):
     print("\n--- ACTUALIZAR PAIS ---")
 
     nombre = input("Nombre del pais a actualizar: ").strip()
-    if nombre == "":
+    if not nombre:
         print("El nombre no puede estar vacio.")
         return
 
     for p in lista:
         if p["nombre"].lower() == nombre.lower():
-            print("Pais encontrado:", p["nombre"])
+            print("Pais encontrado: ", p["nombre"])
 
             nueva_poblacion = input("Nueva poblacion (actual: " + str(p["poblacion"]) + "): ").strip()
-            if nueva_poblacion == "" or not nueva_poblacion.isdigit() or int(nueva_poblacion) <= 0:
+            if not nueva_poblacion or not nueva_poblacion.isdigit() or int(nueva_poblacion) <= 0:
                 print("Valor de poblacion invalido.")
                 return
 
             nueva_superficie = input("Nueva superficie (actual: " + str(p["superficie"]) + " km2): ").strip()
-            if nueva_superficie == "" or not nueva_superficie.isdigit() or int(nueva_superficie) <= 0:
+            if not nueva_superficie or not nueva_superficie.isdigit() or int(nueva_superficie) <= 0:
                 print("Valor de superficie invalido.")
                 return
 
@@ -150,7 +152,7 @@ def buscar_pais(lista):
     print("\n--- BUSCAR PAIS ---")
 
     termino = input("Ingresa el nombre o parte del nombre: ").strip()
-    if termino == "":
+    if not termino:
         print("Ingresa al menos un caracter para buscar.")
         return
 
@@ -166,7 +168,7 @@ def filtrar_por_continente(lista):
     print("\n--- FILTRAR POR CONTINENTE ---")
 
     continente = input("Ingresa el continente: ").strip()
-    if continente == "":
+    if not continente:
         print("El continente no puede estar vacio.")
         return
 
@@ -185,7 +187,7 @@ def filtrar_por_poblacion(lista):
     maximo = input("Poblacion maxima: ").strip()
 
     if not minimo.isdigit() or not maximo.isdigit():
-        print("Los valores tienen que ser numeros enteros.")
+        print("Los valores tienen que ser numeros enteros mayores a cero.")
         return
 
     minimo = int(minimo)
@@ -210,7 +212,7 @@ def filtrar_por_superficie(lista):
     maximo = input("Superficie maxima (km2): ").strip()
 
     if not minimo.isdigit() or not maximo.isdigit():
-        print("Los valores tienen que ser numeros enteros.")
+        print("Los valores tienen que ser numeros enteros mayores a cero.")
         return
 
     minimo = int(minimo)
@@ -284,7 +286,7 @@ def ordenar_paises(lista):
 def mostrar_estadisticas(lista):
     print("\n--- ESTADISTICAS ---")
 
-    if len(lista) == 0:
+    if not lista:
         print("No hay paises cargados.")
         return
 
