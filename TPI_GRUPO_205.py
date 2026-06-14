@@ -11,30 +11,30 @@ import os
 def cargar_paises():
     lista = []
 
+    # Retorno temprano en caso de que el archivo no se encuentre
     if not os.path.exists("paises.csv"):
         print("No se encontro el archivo paises.csv")
         return lista
 
-    archivo = open("paises.csv", newline="", encoding="utf-8")
-    lector = csv.DictReader(archivo)
+    with open("paises.csv", newline="", encoding="utf-8") as archivo:
+        lector = csv.DictReader(archivo)
 
-    for fila in lector:
-        if fila["nombre"].strip() == "" or fila["poblacion"].strip() == "" or fila["superficie"].strip() == "" or fila["continente"].strip() == "":
-            print("Se ignoro una fila con datos incompletos")
-            continue
+        for fila in lector:
+            if fila["nombre"].strip() == "" or fila["poblacion"].strip() == "" or fila["superficie"].strip() == "" or fila["continente"].strip() == "":
+                print("Se ignoro una fila con datos incompletos")
+                continue
 
-        try:
-            pais = {
-                "nombre": fila["nombre"].strip(),
-                "poblacion": int(fila["poblacion"].strip()),
-                "superficie": int(fila["superficie"].strip()),
-                "continente": fila["continente"].strip()
-            }
-            lista.append(pais)
-        except:
-            print("Se ignoro una fila con formato incorrecto")
-
-    archivo.close()
+            try:
+                pais = {
+                    "nombre": fila["nombre"].strip(),
+                    "poblacion": int(fila["poblacion"].strip()),
+                    "superficie": int(fila["superficie"].strip()),
+                    "continente": fila["continente"].strip()
+                }
+                lista.append(pais)
+            except ValueError as e:
+                print(f"Se ignoro una fila con formato incorrecto: {e}")
+    
     return lista
 
 
