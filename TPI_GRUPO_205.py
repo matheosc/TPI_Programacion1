@@ -45,8 +45,8 @@ def guardar_paises(lista):
             escritor.writeheader()
             escritor.writerows(lista)
         print("Cambios guardados correctamente.")
-    except:
-        print("Error: {e}")
+    except Exception as e:
+        print(f"Error: {e}")
 
 
 def mostrar_pais(pais):
@@ -91,7 +91,7 @@ def agregar_pais(lista):
         return
 
     superficie = input("Superficie en km2: ").strip()
-    if not poblacion:
+    if not superficie:
         print("La superficie no puede estar vacia.")
         return
     if not superficie.isdigit():
