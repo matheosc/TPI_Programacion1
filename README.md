@@ -1,12 +1,12 @@
 # TPI - Gestión de Datos de Países (Programación 1)
 
-## 👥 Integrantes - Grupo 205
+##  Integrantes - Grupo 205
 * **Gustavo Ramon Parodi**
 * **Matheo Santiago Cardozo**
 
 ---
 
-## 📝 Descripción del Programa
+##  Descripción del Programa
 Este sistema es una aplicación de consola desarrollada en **Python** diseñada para la gestión, análisis y filtrado de información de países. Permite la persistencia de datos mediante un archivo local en formato **CSV** (`paises.csv`), asegurando que las modificaciones (altas y actualizaciones) se guarden automáticamente. 
 
 El programa implementa controles estrictos de validación de datos para evitar desbordamientos de tipos, entradas vacías o inconsistencias matemáticas (como valores negativos o iguales a cero en población y superficie).
@@ -19,13 +19,13 @@ El programa implementa controles estrictos de validación de datos para evitar d
 
 ---
 
-## 🔗 Links del Proyecto
+##  Links del Proyecto
 * **Repositorio de GitHub:** https://github.com/matheosc/TPI_Programacion1
 * **Video Explicativo:** [Ver Video Explicativo en YouTube](https://youtu.be/OnO3xBGW6XA)
 
 ---
 
-## 🚀 Instrucciones de Uso
+##  Instrucciones de Uso
 
 ### Prerrequisitos
 * Tener instalado **Python 3.x**.
